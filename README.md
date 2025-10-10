@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UniHelp
 
-## Getting Started
+## Project Description
+UniHelp is a community-driven digital platform where individuals can report hazards, social problems, or societal issues anonymously or with their identity. Users can collaborate to provide information, support, or resources to solve the problems—either physically or virtually. A reward system with points, titles, and recognition motivates individuals and groups to contribute actively. Reported issues can be voted upon by the community, with severe or high-priority problems escalated to concerned authorities.
 
-First, run the development server:
+## Theme
+Community Collaboration and Civic Empowerment
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Category
+Civic Tech / Social Good / Crowd-sourced Problem Reporting
+
+## Clear Statement of the Problem
+- Lack of centralized citizen engagement platforms.
+- Authorities often respond slowly due to underreporting or fragmented complaints.
+- People want to help but lack channels to contribute meaningfully.
+- Fear of exposure prevents people from reporting sensitive issues.
+
+## Who Faces the Issue?
+- General public facing daily hazards (e.g., bad roads, pollution, unsafe neighborhoods).
+- Vulnerable groups (elderly, disabled, marginalized communities).
+- Authorities who lack accurate citizen feedback.
+
+## Current Gaps in Existing Solutions
+- Complaint apps exist but lack community collaboration.
+- No gamification/reward system to encourage contribution.
+- Most platforms don’t allow anonymous reporting.
+- Issues are rarely prioritized democratically by community votes.
+
+## One-Line Pitch
+“A crowdsourced civic problem-solving platform where reporting, helping, and collaboration are rewarded.”
+
+## Key Features
+1. **Anonymous or Named Reporting** – users choose how they submit hazards/problems.
+2. **Community Voting & Prioritization** – issues get ranked by urgency.
+3. **Gamified Contribution System** – points, monthly titles, leaderboards, and recognition.
+4. **Collaboration Spaces** – groups/individuals can work together, share resources, and escalate problems to authorities.
+
+## How My Solution Is Different
+- Gamification + Rewards motivate continuous engagement.
+- Anonymous participation ensures safety.
+- Crowdsourced prioritization of issues through voting.
+- Action-oriented groups beyond reporting—direct help, resources, information sharing.
+
+## Benefits
+- Empowers citizens to actively engage in problem-solving.
+- Encourages collaboration between individuals, groups, and authorities.
+- Faster identification and escalation of major hazards.
+- Motivates participation via recognition and gamification.
+- Safer reporting through anonymity.
+
+## Technology Stack & Architecture
+### Frontend
+- React.js / Next.js
+- Tailwind CSS (UI)
+
+### Datasets (Optional)
+- Government open datasets for civic infrastructure
+- Disaster management datasets
+
+### Architecture Diagram (System Flow)
+```
+User -> Frontend (React) -> Backend API (Node/Django) -> Database (PostgreSQL/MongoDB)
+                                           |
+                                           |-> Maps API for location
+                                           |-> Notification API (Twilio/Email)
+                                           |-> Cloud Storage for media
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Interaction
+1. User reports hazard (with/without name).
+2. Backend stores report + tags location.
+3. Community can view, vote, or help.
+4. Contribution recorded → points → leaderboard.
+5. High-priority issues flagged → sent to authorities.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Innovative Technology
+- Gamification engine (monthly recognition, points, leaderboards).
+- Community-driven prioritization via democratic voting.
+- Anonymous blockchain-based reporting option (future scope) for tamper-proof reporting.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Security
+- End-to-end encryption for sensitive reports.
+- Anonymity option with hashed IDs.
+- Moderation & AI filters to prevent spam/misuse.
+- Secure authentication (OAuth, JWT).
+- Role-based access for admins, users, authorities.
