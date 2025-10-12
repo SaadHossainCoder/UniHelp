@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
-import { HeroHeader } from "./header"
+// import { HeroHeader } from "./header"
 
 const transitionVariants = {
     item: {
@@ -30,7 +30,7 @@ const transitionVariants = {
 export default function HeroSection() {
     return (
         <div className="relative overflow-hidden bg-background [background:radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(255,80,120,0.25),transparent_70%)]">
-            <HeroHeader />
+            {/* <HeroHeader /> */}
             <main className="overflow-hidden">
                 <div
                     aria-hidden
@@ -87,7 +87,7 @@ export default function HeroSection() {
                                     <Link
                                         href="#link"
                                         className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950">
-                                        <span className="text-foreground text-sm">Introducing Support for AI Models</span>
+                                        <span className="text-foreground text-sm">Community & Civic Empowerment</span>
                                         <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
                                         <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
@@ -117,7 +117,7 @@ export default function HeroSection() {
                                     delay={0.5}
                                     as="p"
                                     className="mx-auto mt-8 max-w-2xl text-balance text-lg">
-                                    Highly customizable components for building modern websites and applications that look and feel the way you mean it.
+                                    Unihelp Community app for  issue reporting, collaborative solutions, rewards, voting, and authority escalation.
                                 </TextEffect>
 
                                 <AnimatedGroup
@@ -141,7 +141,8 @@ export default function HeroSection() {
                                             size="lg"
                                             className="rounded-xl px-5 text-base">
                                             <Link href="#link">
-                                                <span className="text-nowrap">Start Building</span>
+                                                <span className="text-nowrap">Exploring</span>
+                                                <ChevronRight className="ml-1 inline-block size-4" />
                                             </Link>
                                         </Button>
                                     </div>
@@ -152,7 +153,7 @@ export default function HeroSection() {
                                         variant="ghost"
                                         className="h-10.5 rounded-xl px-5">
                                         <Link href="#link">
-                                            <span className="text-nowrap">Request a demo</span>
+                                            <span className="text-nowrap">Learn More</span>
                                         </Link>
                                     </Button>
                                 </AnimatedGroup>

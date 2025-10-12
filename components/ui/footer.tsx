@@ -78,14 +78,11 @@ export function Footer({
           <div className="mt-6 lg:mt-0 lg:col-[4/11]">
             <ul className="list-none flex flex-wrap -my-1 -mx-3 lg:justify-end">
               {legalLinks.map((link, i) => (
-                <li key={i} className="my-1 mx-3 shrink-0">
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground underline-offset-4 hover:underline"
-                  >
-                    {link.label}
-                  </a>
-                </li>
+                <Link
+                  key={i} href={link.href} className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+                >
+                  {link.label}
+                </Link>
               ))}
             </ul>
           </div>

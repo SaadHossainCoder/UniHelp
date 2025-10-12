@@ -15,7 +15,7 @@ export const MarketingFooter = () => {
                     },
                     {
                         icon: <Github className="h-5 w-5" />,
-                        href: "https://github.com",
+                        href: "https://github.com/SaadHossainCoder/UniHelp",
                         label: "GitHub",
                     },
                 ]}
