@@ -2,8 +2,8 @@
 import { Logo } from '@/components/logo'
 import { useState } from 'react'
 import Link from 'next/link'
+import { Home, Search, Bell, Users, User, Store , Menu, X, ChevronsLeft,  Award, ChevronsRight } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Home, Search, Bell, Mail, User, Settings, Menu, X, ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { ModeToggle } from '@/components/providers/mode-toggle'
 
 export const Navigation = () => {
@@ -11,12 +11,13 @@ export const Navigation = () => {
     const [isCollapsed, setIsCollapsed] = useState(false)
 
     const navItems = [
+        { href: '/home', icon: Search, label: 'Search' },
         { href: '/home', icon: Home, label: 'Home' },
-        { href: '/explore', icon: Search, label: 'Explore' },
-        { href: '/notifications', icon: Bell, label: 'Notifications' },
-        { href: '/messages', icon: Mail, label: 'Messages' },
+        { href: '/community', icon: Users, label: 'Community' },
+        { href: '/notification', icon: Bell, label: 'Notifications' },
         { href: '/profile', icon: User, label: 'Profile' },
-        { href: '/settings', icon: Settings, label: 'Settings' },
+        { href: '/shop', icon: Store , label: 'Shop' },
+        { href: '/leaderboard', icon:  Award , label: 'leaderboard' },
     ]
 
     const sidebarVariants = {
@@ -43,7 +44,7 @@ export const Navigation = () => {
                         const Icon = item.icon
                         return (
                             <Link key={item.href} href={item.href} className="flex flex-col items-center gap-1 p-2 text-muted-foreground hover:text-foreground">
-                                <Icon className="h-5 w-5" />
+                                <Icon className="h-5 w-5" aria-hidden="true" />
                                 <span className="text-xs">{item.label}</span>
                             </Link>
                         )
