@@ -34,6 +34,35 @@
 	},
 	"records": [
 		{
+			"id": "pointer:pointer",
+			"typeName": "pointer",
+			"x": 1017.1046661259306,
+			"y": 907.6451904247091,
+			"lastActivityTimestamp": 1760289808802,
+			"meta": {}
+		},
+		{
+			"x": 2124.8761959135095,
+			"y": 606.1120976090091,
+			"z": 0.2853826061912096,
+			"meta": {},
+			"id": "camera:page:page",
+			"typeName": "camera"
+		},
+		{
+			"editingShapeId": null,
+			"croppingShapeId": null,
+			"selectedShapeIds": [],
+			"hoveredShapeId": null,
+			"erasingShapeIds": [],
+			"hintingShapeIds": [],
+			"focusedGroupId": null,
+			"meta": {},
+			"id": "instance_page_state:page:page",
+			"pageId": "page:page",
+			"typeName": "instance_page_state"
+		},
+		{
 			"meta": {},
 			"id": "page:page",
 			"name": "Page 1",
@@ -48,19 +77,10 @@
 			"typeName": "document"
 		},
 		{
-			"id": "pointer:pointer",
-			"typeName": "pointer",
-			"x": -35.52139530290151,
-			"y": 233.00957372992548,
-			"lastActivityTimestamp": 1760273145849,
-			"meta": {}
-		},
-		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
 			"stylesForNextShape": {
-				"tldraw:geo": "rectangle",
-				"tldraw:color": "light-green"
+				"tldraw:geo": "rectangle"
 			},
 			"brush": null,
 			"scribbles": [],
@@ -75,7 +95,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 990,
+				"w": 1232,
 				"h": 605.3333740234375
 			},
 			"insets": [
@@ -102,27 +122,6 @@
 			"id": "instance:instance",
 			"currentPageId": "page:page",
 			"typeName": "instance"
-		},
-		{
-			"editingShapeId": null,
-			"croppingShapeId": null,
-			"selectedShapeIds": [],
-			"hoveredShapeId": null,
-			"erasingShapeIds": [],
-			"hintingShapeIds": [],
-			"focusedGroupId": null,
-			"meta": {},
-			"id": "instance_page_state:page:page",
-			"pageId": "page:page",
-			"typeName": "instance_page_state"
-		},
-		{
-			"x": 1283.829964721656,
-			"y": 515.6344584145818,
-			"z": 0.390929032284367,
-			"meta": {},
-			"id": "camera:page:page",
-			"typeName": "camera"
 		}
 	]
 }

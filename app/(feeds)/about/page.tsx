@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
-const page = () => {
+
+const About = () => {
     return (
         <>
             <div className="min-h-screen bg-gray-50 dark:bg-[#1F1F1F] pt-40 pb-10 px-10  sm:px-6 lg:px-8 transition-colors duration-300">
@@ -175,4 +176,4 @@ const page = () => {
     )
 }
 
-export default page
+export default About

@@ -1,11 +1,10 @@
-import React from 'react'
 
-const page = () => {
+const ContactUs = () => {
     return (
         <div>
-            Contact us page
+            Contact us ContactUs
         </div>
     )
 }
 
-export default page
+export default ContactUs

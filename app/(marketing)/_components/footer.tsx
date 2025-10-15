@@ -1,12 +1,13 @@
 import { Hexagon, Github, Twitter } from "lucide-react"
 import { Footer } from "@/components/ui/footer"
+import { Logo } from '@/components/logo'
 
 export const MarketingFooter = () => {
     return (
         <div className="w-full">
             <Footer
-                logo={<Hexagon className="h-10 w-10" />}
-                brandName="Awesome Corp"
+                logo={<Logo className="h-10 w-10" />}
+                brandName="UniHelp"
                 socialLinks={[
                     {
                         icon: <Twitter className="h-5 w-5" />,
