@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -94,19 +96,54 @@ const tabItems = [
     // { value: 'password', label: 'Manage password' },
 ]
 
+// Animation variants
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
+}
+
+const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+}
+
+const cardVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+}
+
 const Profile = () => {
+    const [activeTab, setActiveTab] = useState('account')
+
     return (
-        <div className="min-h-screen bg-background text-foreground">
-            <Tabs defaultValue="account" className="w-full">
+        <motion.div 
+            className="min-h-screen bg-background text-foreground"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+        >
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 {/* Updated Header with TabsList */}
-                <header className="border-b border-border bg-card p-6">
+                <motion.header 
+                    className="border-b border-border bg-card p-6"
+                    variants={itemVariants}
+                    whileHover={{ y: -2 }}
+                >
                     <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-4">
+                        <motion.div 
+                            className="flex items-center gap-4"
+                            whileHover={{ scale: 1.02 }}
+                        >
                             <div className="relative">
-                                <Avatar className="h-16 w-16">
-                                    <AvatarImage src="/sam-avatar.jpg" alt="Sam Raymond" />
-                                    <AvatarFallback>SR</AvatarFallback>
-                                </Avatar>
+                                <motion.div whileHover={{ scale: 1.05 }}>
+                                    <Avatar className="h-16 w-16">
+                                        <AvatarImage src="/sam-avatar.jpg" alt="Sam Raymond" />
+                                        <AvatarFallback>SR</AvatarFallback>
+                                    </Avatar>
+                                </motion.div>
                                 <Button variant="ghost" size="sm" className="absolute -top-1 -right-1 h-6 w-6 p-0 rounded-full">
                                     <Edit3 className="h-3 w-3" />
                                 </Button>
@@ -116,471 +153,600 @@ const Profile = () => {
                                 <p className="text-sm text-muted-foreground">{personalInfo.email}</p>
                                 <p className="text-sm text-muted-foreground">{personalInfo.phone}</p>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
-                    <TabsList className="mt-4 w-full justify-start overflow-x-auto">
-                        {tabItems.map((tab) => (
-                            <TabsTrigger key={tab.value} value={tab.value}>
-                                {tab.label}
-                            </TabsTrigger>
-                        ))}
-                    </TabsList>
-                </header>
+                    <motion.div 
+                        className="mt-4 w-full"
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        <TabsList className="w-full justify-start overflow-x-auto">
+                            {tabItems.map((tab) => (
+                                <TabsTrigger key={tab.value} value={tab.value}>
+                                    {tab.label}
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+                    </motion.div>
+                </motion.header>
 
                 {/* Account Settings Tab (Old Profile Content) */}
                 <TabsContent value="account" className="space-y-6 p-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Personal Information */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Personal Information</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <form className="space-y-4">
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="fullName">Full Name</Label>
-                                            <Input id="fullName" defaultValue={personalInfo.fullName} />
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Personal Information</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <form className="space-y-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-2">
+                                                <Label htmlFor="fullName">Full Name</Label>
+                                                <Input id="fullName" defaultValue={personalInfo.fullName} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="dob">Date of Birth</Label>
+                                                <Input id="dob" type="date" defaultValue={personalInfo.dateOfBirth} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="gender">Gender</Label>
+                                                <Input id="gender" defaultValue={personalInfo.gender} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="marital">Marital Status</Label>
+                                                <Input id="marital" defaultValue={personalInfo.maritalStatus} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="phone">Phone</Label>
+                                                <Input id="phone" defaultValue={personalInfo.phone} />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="email">Email</Label>
+                                                <Input id="email" type="email" defaultValue={personalInfo.email} />
+                                            </div>
                                         </div>
                                         <div className="space-y-2">
-                                            <Label htmlFor="dob">Date of Birth</Label>
-                                            <Input id="dob" type="date" defaultValue={personalInfo.dateOfBirth} />
+                                            <Label htmlFor="address">Address</Label>
+                                            <Input id="address" defaultValue={personalInfo.address} />
                                         </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="gender">Gender</Label>
-                                            <Input id="gender" defaultValue={personalInfo.gender} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="marital">Marital Status</Label>
-                                            <Input id="marital" defaultValue={personalInfo.maritalStatus} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="phone">Phone</Label>
-                                            <Input id="phone" defaultValue={personalInfo.phone} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input id="email" type="email" defaultValue={personalInfo.email} />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="address">Address</Label>
-                                        <Input id="address" defaultValue={personalInfo.address} />
-                                    </div>
-                                    <Button className="w-full">Save Changes</Button>
-                                </form>
-                            </CardContent>
-                        </Card>
+                                        <Button className="w-full">Save Changes</Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Blog Stories */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Blog Stories</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                {blogData.map((story, index) => (
-                                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                                        <div className="flex items-center gap-3">
-                                            <div className={`h-8 w-8 rounded flex items-center justify-center text-xs font-bold ${story.type === 'post' ? 'bg-blue-500 text-white' : story.type === 'article' ? 'bg-green-500 text-white' : 'bg-purple-500 text-white'}`}>
-                                                {story.type === 'post' ? 'POST' : story.type === 'article' ? 'ART' : 'STORY'}
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Blog Stories</CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    {blogData.map((story, index) => (
+                                        <motion.div 
+                                            key={index} 
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="flex items-center justify-between p-3 border rounded-lg"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <div className={`h-8 w-8 rounded flex items-center justify-center text-xs font-bold ${story.type === 'post' ? 'bg-blue-500 text-white' : story.type === 'article' ? 'bg-green-500 text-white' : 'bg-purple-500 text-white'}`}>
+                                                    {story.type === 'post' ? 'POST' : story.type === 'article' ? 'ART' : 'STORY'}
+                                                </div>
+                                                <div>
+                                                    <p className="font-medium">{story.title}</p>
+                                                    <p className="text-sm text-muted-foreground">{story.description}</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p className="font-medium">{story.title}</p>
-                                                <p className="text-sm text-muted-foreground">{story.description}</p>
-                                            </div>
-                                        </div>
-                                        <Badge variant="secondary">{story.date}</Badge>
-                                    </div>
-                                ))}
-                            </CardContent>
-                        </Card>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Org Chart */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Team</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-4">
-                                    {teamMembers.map((member, index) => (
-                                        <div key={index} className="flex items-center gap-4 p-3 border rounded-lg">
-                                            <Avatar className="h-10 w-10">
-                                                <AvatarImage src={member.avatar} alt={member.name} />
-                                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                                            </Avatar>
-                                            <div>
-                                                <p className="font-medium">{member.name}</p>
-                                                <p className="text-sm text-muted-foreground">{member.role}</p>
-                                            </div>
-                                        </div>
+                                            <Badge variant="secondary">{story.date}</Badge>
+                                        </motion.div>
                                     ))}
-                                </div>
-                            </CardContent>
-                        </Card>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
+
+                    <motion.div 
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {/* Org Chart */}
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Team</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        {teamMembers.map((member, index) => (
+                                            <motion.div 
+                                                key={index} 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.1 }}
+                                                className="flex items-center gap-4 p-3 border rounded-lg"
+                                            >
+                                                <Avatar className="h-10 w-10">
+                                                    <AvatarImage src={member.avatar} alt={member.name} />
+                                                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                                                </Avatar>
+                                                <div>
+                                                    <p className="font-medium">{member.name}</p>
+                                                    <p className="text-sm text-muted-foreground">{member.role}</p>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Data Completion */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Data Completion</CardTitle>
-                                <CardDescription>2/5</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-3">
-                                {completionItems.map((item, index) => (
-                                    <div key={index} className="flex items-center justify-between">
-                                        <span className="text-sm">{item.label}</span>
-                                        {item.completed ? <CheckCircle className="h-4 w-4 text-green-500" /> : <XCircle className="h-4 w-4 text-red-500" />}
-                                    </div>
-                                ))}
-                                <Progress value={40} className="w-full" />
-                            </CardContent>
-                        </Card>
-                    </div>
-
-                    {/* Documents (Old Profile Content) */}
-                    {/* <Card>
-                        <CardHeader>
-                            <CardTitle>Documents</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            {documents.map((doc, index) => (
-                                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                                    <div className="flex items-center gap-3">
-                                        <div className={`h-8 w-8 rounded flex items-center justify-center text-xs font-bold ${doc.type === 'pdf' ? 'bg-red-500 text-white' : doc.type === 'doc' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'}`}>
-                                            {doc.type === 'pdf' ? 'PDF' : doc.type === 'doc' ? 'DOC' : 'CERT'}
-                                        </div>
-                                        <div>
-                                            <p className="font-medium">{doc.title}</p>
-                                            <p className="text-sm text-muted-foreground">{doc.description}</p>
-                                        </div>
-                                    </div>
-                                    <Badge variant="secondary">{doc.date}</Badge>
-                                </div>
-                            ))}
-                        </CardContent>
-                    </Card> */}
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Data Completion</CardTitle>
+                                    <CardDescription>2/5</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-3">
+                                    {completionItems.map((item, index) => (
+                                        <motion.div 
+                                            key={index} 
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="flex items-center justify-between"
+                                        >
+                                            <span className="text-sm">{item.label}</span>
+                                            {item.completed ? <CheckCircle className="h-4 w-4 text-green-500" /> : <XCircle className="h-4 w-4 text-red-500" />}
+                                        </motion.div>
+                                    ))}
+                                    <Progress value={40} className="w-full" />
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Manage Password Tab */}
                 <TabsContent value="password" className="space-y-6 p-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Manage Password</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="currentPassword">Current Password</Label>
-                                <Input id="currentPassword" type="password" placeholder="Enter current password" />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="newPassword">New Password</Label>
-                                <Input id="newPassword" type="password" placeholder="Enter new password" />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                                <Input id="confirmPassword" type="password" placeholder="Confirm new password" />
-                            </div>
-                            <Button className="w-full">Update Password</Button>
-                        </CardContent>
-                    </Card>
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Manage Password</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="currentPassword">Current Password</Label>
+                                    <Input id="currentPassword" type="password" placeholder="Enter current password" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="newPassword">New Password</Label>
+                                    <Input id="newPassword" type="password" placeholder="Enter new password" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                                    <Input id="confirmPassword" type="password" placeholder="Confirm new password" />
+                                </div>
+                                <Button className="w-full">Update Password</Button>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Order History Tab */}
                 <TabsContent value="orders" className="space-y-6 p-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Order History</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-4">
-                                {/* Mock order items */}
-                                <div className="flex items-center justify-between p-4 border rounded-lg">
-                                    <div>
-                                        <p className="font-medium">Order #12345</p>
-                                        <p className="text-sm text-muted-foreground">Oct 10, 2024</p>
-                                    </div>
-                                    <Badge variant="secondary">Delivered</Badge>
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Order History</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    {/* Mock order items */}
+                                    {recentTransactions.map((trans, index) => (
+                                        <motion.div 
+                                            key={index} 
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="flex items-center justify-between p-4 border rounded-lg"
+                                        >
+                                            <div>
+                                                <p className="font-medium">Order #{index + 12345}</p>
+                                                <p className="text-sm text-muted-foreground">Oct 10, 2024</p>
+                                            </div>
+                                            <Badge variant="secondary">Delivered</Badge>
+                                        </motion.div>
+                                    ))}
                                 </div>
-                                <div className="flex items-center justify-between p-4 border rounded-lg">
-                                    <div>
-                                        <p className="font-medium">Order #12344</p>
-                                        <p className="text-sm text-muted-foreground">Sep 25, 2024</p>
-                                    </div>
-                                    <Badge variant="default">Processing</Badge>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Payment Methods Tab */}
                 <TabsContent value="payments" className="space-y-6 p-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Payment Methods</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between p-4 border rounded-lg">
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
-                                            <span className="text-xl">****</span>
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Payment Methods</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    <motion.div 
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="flex items-center justify-between p-4 border rounded-lg"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                                                <span className="text-xl">****</span>
+                                            </div>
+                                            <div>
+                                                <p className="font-medium">Visa **** 1234</p>
+                                                <p className="text-sm text-muted-foreground">Expires 12/28</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p className="font-medium">Visa **** 1234</p>
-                                            <p className="text-sm text-muted-foreground">Expires 12/28</p>
-                                        </div>
-                                    </div>
-                                    <Button variant="outline" size="sm">Set Default</Button>
+                                        <Button variant="outline" size="sm">Set Default</Button>
+                                    </motion.div>
+                                    <Button variant="outline" className="w-full">Add Payment Method</Button>
                                 </div>
-                                <Button variant="outline" className="w-full">Add Payment Method</Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Address Tab */}
                 <TabsContent value="address" className="space-y-6 p-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Address</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <form className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="street">Street</Label>
-                                    <Input id="street" defaultValue={personalInfo.address} />
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Address</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <form className="space-y-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="city">City</Label>
-                                        <Input id="city" defaultValue="Springfield" />
+                                        <Label htmlFor="street">Street</Label>
+                                        <Input id="street" defaultValue={personalInfo.address} />
                                     </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="zip">ZIP Code</Label>
-                                        <Input id="zip" defaultValue="12345" />
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="city">City</Label>
+                                            <Input id="city" defaultValue="Springfield" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="zip">ZIP Code</Label>
+                                            <Input id="zip" defaultValue="12345" />
+                                        </div>
                                     </div>
-                                </div>
-                                <Button className="w-full">Save Address</Button>
-                            </form>
-                        </CardContent>
-                    </Card>
+                                    <Button className="w-full">Save Address</Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Notification Tab */}
                 <TabsContent value="notifications" className="space-y-6 p-6">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Notifications</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="space-y-2">
-                                <Label className="flex items-center gap-2">
-                                    <Input type="checkbox" defaultChecked />
-                                    Email Notifications
-                                </Label>
-                                <p className="text-sm text-muted-foreground ml-6">Receive emails about updates and new features</p>
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="flex items-center gap-2">
-                                    <Input type="checkbox" defaultChecked />
-                                    Push Notifications
-                                </Label>
-                                <p className="text-sm text-muted-foreground ml-6">Get push notifications on mobile</p>
-                            </div>
-                            <div className="space-y-2">
-                                <Label className="flex items-center gap-2">
-                                    <Input type="checkbox" />
-                                    Marketing Emails
-                                </Label>
-                                <p className="text-sm text-muted-foreground ml-6">Receive promotional content</p>
-                            </div>
-                            <Button className="w-full">Save Preferences</Button>
-                        </CardContent>
-                    </Card>
+                    <motion.div 
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Notifications</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label className="flex items-center gap-2">
+                                        <Input type="checkbox" defaultChecked />
+                                        Email Notifications
+                                    </Label>
+                                    <p className="text-sm text-muted-foreground ml-6">Receive emails about updates and new features</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="flex items-center gap-2">
+                                        <Input type="checkbox" defaultChecked />
+                                        Push Notifications
+                                    </Label>
+                                    <p className="text-sm text-muted-foreground ml-6">Get push notifications on mobile</p>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="flex items-center gap-2">
+                                        <Input type="checkbox" />
+                                        Marketing Emails
+                                    </Label>
+                                    <p className="text-sm text-muted-foreground ml-6">Receive promotional content</p>
+                                </div>
+                                <Button className="w-full">Save Preferences</Button>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
                 </TabsContent>
 
                 {/* Activity Tab (Old Activity Content) */}
                 <TabsContent value="activity" className="space-y-6 p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Avatar & Points */}
-                        <Card>
-                            <CardHeader className="text-center">
-                                <Avatar className="h-20 w-20 mx-auto mb-2">
-                                    <AvatarImage src="/avatar-3d.jpg" />
-                                    <AvatarFallback>SR</AvatarFallback>
-                                </Avatar>
-                                <CardTitle className="text-3xl font-bold">3456</CardTitle>
-                                <CardDescription>Your Points</CardDescription>
-                            </CardHeader>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader className="text-center">
+                                    <motion.div whileHover={{ scale: 1.05 }}>
+                                        <Avatar className="h-20 w-20 mx-auto mb-2">
+                                            <AvatarImage src="/avatar-3d.jpg" />
+                                            <AvatarFallback>SR</AvatarFallback>
+                                        </Avatar>
+                                    </motion.div>
+                                    <CardTitle className="text-3xl font-bold">3456</CardTitle>
+                                    <CardDescription>Your Points</CardDescription>
+                                </CardHeader>
+                            </Card>
+                        </motion.div>
 
                         {/* Level */}
-                        <Card>
-                            <CardHeader className="text-center">
-                                <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                                    <Star className="h-8 w-8 text-primary" />
-                                </div>
-                                <CardTitle className="text-2xl">80</CardTitle>
-                                <CardDescription>My Level</CardDescription>
-                                <Progress value={74} className="mt-2" />
-                                <p className="text-xs text-center text-muted-foreground">2030 to next level</p>
-                            </CardHeader>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader className="text-center">
+                                    <motion.div 
+                                        className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-2"
+                                        whileHover={{ scale: 1.1 }}
+                                    >
+                                        <Star className="h-8 w-8 text-primary" />
+                                    </motion.div>
+                                    <CardTitle className="text-2xl">80</CardTitle>
+                                    <CardDescription>My Level</CardDescription>
+                                    <Progress value={74} className="mt-2" />
+                                    <p className="text-xs text-center text-muted-foreground">2030 to next level</p>
+                                </CardHeader>
+                            </Card>
+                        </motion.div>
 
                         {/* Tokens */}
-                        <Card>
-                            <CardHeader className="text-center">
-                                <div className="mx-auto h-16 w-16 rounded-full bg-secondary/10 flex items-center justify-center mb-2">
-                                    <Sparkles className="h-8 w-8 text-secondary" />
-                                </div>
-                                <CardTitle className="text-2xl">34</CardTitle>
-                                <CardDescription>Your Tokens</CardDescription>
-                            </CardHeader>
-                            <CardContent className="pt-0">
-                                <Button variant="outline" size="sm" className="w-full">Spend Tokens</Button>
-                            </CardContent>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader className="text-center">
+                                    <motion.div 
+                                        className="mx-auto h-16 w-16 rounded-full bg-secondary/10 flex items-center justify-center mb-2"
+                                        whileHover={{ scale: 1.1 }}
+                                    >
+                                        <Sparkles className="h-8 w-8 text-secondary" />
+                                    </motion.div>
+                                    <CardTitle className="text-2xl">34</CardTitle>
+                                    <CardDescription>Your Tokens</CardDescription>
+                                </CardHeader>
+                                <CardContent className="pt-0">
+                                    <Button variant="outline" size="sm" className="w-full">Spend Tokens</Button>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Energy */}
-                        <Card>
-                            <CardHeader className="text-center">
-                                <div className="mx-auto h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mb-2">
-                                    <Zap className="h-8 w-8 text-destructive" />
-                                </div>
-                                <CardTitle className="text-2xl">10</CardTitle>
-                                <CardDescription>Energy</CardDescription>
-                            </CardHeader>
-                            <CardContent className="pt-0">
-                                <Button variant="outline" size="sm" className="w-full">Browse People</Button>
-                            </CardContent>
-                        </Card>
-                    </div>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader className="text-center">
+                                    <motion.div 
+                                        className="mx-auto h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mb-2"
+                                        whileHover={{ scale: 1.1 }}
+                                    >
+                                        <Zap className="h-8 w-8 text-destructive" />
+                                    </motion.div>
+                                    <CardTitle className="text-2xl">10</CardTitle>
+                                    <CardDescription>Energy</CardDescription>
+                                </CardHeader>
+                                <CardContent className="pt-0">
+                                    <Button variant="outline" size="sm" className="w-full">Browse People</Button>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Recent Transactions */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Recent Transactions</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    {recentTransactions.map((trans, index) => (
-                                        <div key={index} className="flex items-center justify-between">
-                                            <span>{trans.task}</span>
-                                            <Badge variant="secondary">+{trans.points} pts</Badge>
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Recent Transactions</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-3">
+                                        {recentTransactions.map((trans, index) => (
+                                            <motion.div 
+                                                key={index} 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.1 }}
+                                                className="flex items-center justify-between"
+                                            >
+                                                <span>{trans.task}</span>
+                                                <Badge variant="secondary">+{trans.points} pts</Badge>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Next Quests */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Next Quests</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    {nextQuests.map((quest, index) => (
-                                        <div key={index} className="flex items-center justify-between">
-                                            <span>{quest.task}</span>
-                                            <Badge variant="outline">{quest.reward} pts</Badge>
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Next Quests</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-3">
+                                        {nextQuests.map((quest, index) => (
+                                            <motion.div 
+                                                key={index} 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.1 }}
+                                                className="flex items-center justify-between"
+                                            >
+                                                <span>{quest.task}</span>
+                                                <Badge variant="outline">{quest.reward} pts</Badge>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {/* Trophies */}
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Trophies</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    {trophies.map((trophy, index) => (
-                                        <div key={index} className="flex items-center gap-3">
-                                            {trophy.icon}
-                                            <div>
-                                                <p className="font-medium">{trophy.name}</p>
-                                                <p className="text-sm text-muted-foreground">{trophy.count} Kudos</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Trophies</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-3">
+                                        {trophies.map((trophy, index) => (
+                                            <motion.div 
+                                                key={index} 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: index * 0.1 }}
+                                                className="flex items-center gap-3"
+                                            >
+                                                {trophy.icon}
+                                                <div>
+                                                    <p className="font-medium">{trophy.name}</p>
+                                                    <p className="text-sm text-muted-foreground">{trophy.count} Kudos</p>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Daily Reward */}
-                        <Card>
-                            <CardHeader className="text-center">
-                                <div className="mx-auto mb-2">
-                                    <Coffee className="h-12 w-12 text-primary mx-auto" />
-                                </div>
-                                <CardTitle>{dailyReward.name}</CardTitle>
-                                <CardDescription>Daily Reward</CardDescription>
-                            </CardHeader>
-                            <CardContent className="pt-0">
-                                <div className="flex items-center justify-center gap-2 text-sm mb-4">
-                                    <Sparkles className="h-4 w-4" />
-                                    +{dailyReward.energy} Energy
-                                </div>
-                                <div className="flex items-center justify-center gap-2 text-sm mb-4">
-                                    <Star className="h-4 w-4" />
-                                    +{dailyReward.tokens} Tokens
-                                </div>
-                                <Button className="w-full">Collect</Button>
-                            </CardContent>
-                        </Card>
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader className="text-center">
+                                    <motion.div 
+                                        className="mx-auto mb-2"
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <Coffee className="h-12 w-12 text-primary mx-auto" />
+                                    </motion.div>
+                                    <CardTitle>{dailyReward.name}</CardTitle>
+                                    <CardDescription>Daily Reward</CardDescription>
+                                </CardHeader>
+                                <CardContent className="pt-0">
+                                    <div className="flex items-center justify-center gap-2 text-sm mb-4">
+                                        <Sparkles className="h-4 w-4" />
+                                        +{dailyReward.energy} Energy
+                                    </div>
+                                    <div className="flex items-center justify-center gap-2 text-sm mb-4">
+                                        <Star className="h-4 w-4" />
+                                        +{dailyReward.tokens} Tokens
+                                    </div>
+                                    <Button className="w-full">Collect</Button>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
 
                         {/* Global Stats */}
+                        <motion.div variants={cardVariants}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Global Stats</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-4">
+                                        <div className="text-center">
+                                            <p className="text-2xl font-bold">{stats.globalTasksCompleted}</p>
+                                            <p className="text-sm text-muted-foreground">Tasks Completed</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="text-2xl font-bold">{stats.kudosSent}</p>
+                                            <p className="text-sm text-muted-foreground">Kudos Sent</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Recent Endorsements */}
+                    <motion.div variants={cardVariants}>
                         <Card>
                             <CardHeader>
-                                <CardTitle>Global Stats</CardTitle>
+                                <CardTitle>Recent Endorsements</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <div className="space-y-4">
-                                    <div className="text-center">
-                                        <p className="text-2xl font-bold">{stats.globalTasksCompleted}</p>
-                                        <p className="text-sm text-muted-foreground">Tasks Completed</p>
-                                    </div>
-                                    <div className="text-center">
-                                        <p className="text-2xl font-bold">{stats.kudosSent}</p>
-                                        <p className="text-sm text-muted-foreground">Kudos Sent</p>
-                                    </div>
+                                <div className="space-y-3">
+                                    {endorsements.map((endorsement, index) => (
+                                        <motion.div 
+                                            key={index} 
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="flex items-center justify-between"
+                                        >
+                                            <span>{endorsement.category}</span>
+                                            <div className="flex items-center gap-2">
+                                                <Badge variant={endorsement.value.startsWith('+') ? 'default' : 'secondary'}>
+                                                    {endorsement.value}
+                                                </Badge>
+                                                <span className="text-sm font-medium">{endorsement.total}</span>
+                                            </div>
+                                        </motion.div>
+                                    ))}
                                 </div>
                             </CardContent>
                         </Card>
-                    </div>
-
-                    {/* Recent Endorsements */}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Recent Endorsements</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-3">
-                                {endorsements.map((endorsement, index) => (
-                                    <div key={index} className="flex items-center justify-between">
-                                        <span>{endorsement.category}</span>
-                                        <div className="flex items-center gap-2">
-                                            <Badge variant={endorsement.value.startsWith('+') ? 'default' : 'secondary'}>
-                                                {endorsement.value}
-                                            </Badge>
-                                            <span className="text-sm font-medium">{endorsement.total}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
+                    </motion.div>
                 </TabsContent>
             </Tabs>
-        </div>
+        </motion.div>
     )
 }
 

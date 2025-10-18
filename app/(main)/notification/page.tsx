@@ -42,7 +42,7 @@ const NotificationItem = ({ notification, index, isFavorite, onToggleFavorite, o
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className="flex items-start gap-3 p-4 border rounded-lg hover:bg-accent dark:bg-[#0A0A0A] cursor-pointer"
+        className="flex items-start gap-3 p-4 border rounded-lg hover:bg-accent dark:bg-[#171717] cursor-pointer"
     >
         <Checkbox className="mt-1 flex-shrink-0" />
         <div className="flex items-center gap-2 flex-1">
@@ -119,7 +119,7 @@ const Notification = () => {
 
     return (
         <div className="min-h-screen bg-background text-foreground p-4 sm:p-6 lg:p-8 dark:bg-[#1F1F1F] ">
-            <div className=" mx-auto h-full flex flex-col">
+            <div className=" h-full flex flex-col">
                 <div className="flex-1 flex flex-col">
                     <CardHeader>
                         <CardTitle className="flex items-center justify-between ">

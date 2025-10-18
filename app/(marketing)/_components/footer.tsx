@@ -6,7 +6,7 @@ export const MarketingFooter = () => {
     return (
         <div className="w-full">
             <Footer
-                logo={<Logo className="h-10 w-10" />}
+                logo={<Logo />}
                 brandName="UniHelp"
                 socialLinks={[
                     {

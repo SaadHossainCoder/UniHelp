@@ -11,7 +11,7 @@ const About = () => {
                         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
                             About UniHelp
                         </h1>
-                        <p className="text-md md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-md md:text-md text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                             Welcome to your community&apos;s toolkit for turning everyday challenges into collective triumphs. We&apos;re a passionate group of developers, civic enthusiasts, and problem-solvers dedicated to fostering a more connected, responsive, and empowered world.
                         </p>
                     </div>
